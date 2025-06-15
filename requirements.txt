@@ -39,3 +39,5 @@ beautifulsoup4~=4.13.3
 
 huggingface-hub~=0.29.2
 setuptools~=75.8.0
+httpx>=0.27.0         # FastAPIとの非同期通信や依存関係調整用
+aiofiles~=24.1.0      # FastAPIでの静的ファイル/レスポンス処理に必要

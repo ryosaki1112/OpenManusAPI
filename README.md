@@ -123,7 +123,7 @@ api_key = "sk-..."  # Replace with your actual API key
 One line for run OpenManus:
 
 ```bash
-python main.py
+uvicorn main:app --reload
 ```
 
 Then input your idea via terminal!

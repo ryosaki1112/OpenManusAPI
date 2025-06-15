@@ -123,7 +123,7 @@ api_key = "sk-..."  # 実際のAPIキーに置き換えてください
 OpenManusを実行する一行コマンド：
 
 ```bash
-python main.py
+uvicorn main:app --reload
 ```
 
 その後、ターミナルからプロンプトを入力してください！

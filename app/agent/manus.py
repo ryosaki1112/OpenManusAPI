@@ -8,7 +8,6 @@ from app.config import config
 from app.logger import logger
 from app.prompt.manus import NEXT_STEP_PROMPT, SYSTEM_PROMPT
 from app.tool import Terminate, ToolCollection
-from app.tool.ask_human import AskHuman
 from app.tool.browser_use_tool import BrowserUseTool
 from app.tool.mcp import MCPClients, MCPClientTool
 from app.tool.python_execute import PythonExecute
@@ -36,7 +35,6 @@ class Manus(ToolCallAgent):
             PythonExecute(),
             BrowserUseTool(),
             StrReplaceEditor(),
-            AskHuman(),
             Terminate(),
         )
     )
@@ -159,7 +157,19 @@ class Manus(ToolCallAgent):
 
         result = await super().think()
 
+
         # Restore original prompt
         self.next_step_prompt = original_prompt
 
         return result
+
+    async def run(self, prompt: str) -> str:
+        """与えられたプロンプトを処理し、最終的な応答を返す。"""
+        self.memory.add_user_message(prompt)
+        await self.run_loop()
+
+        for msg in reversed(self.memory.messages):
+            if msg.role == "assistant" and msg.content:
+                return msg.content
+
+        return "No response generated."
