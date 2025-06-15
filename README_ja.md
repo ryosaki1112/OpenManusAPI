@@ -118,26 +118,38 @@ base_url = "https://api.openai.com/v1"
 api_key = "sk-..."  # 実際のAPIキーに置き換えてください
 ```
 
-## クイックスタート
+## 🚀 APIとしての実行方法（FastAPI）
+
+OpenManusはCLIだけでなく、FastAPIを使って**HTTP API経由でプロンプト実行**が可能です。
+
+### エンドポイント
+
+- `/run/agent`：単一エージェント（Manus）にプロンプトを渡して実行
+- `/run/flow`：マルチエージェント構成でのプロンプト実行（Planning Flow）
+
+### 起動方法
+
+```bash
+uvicorn main:app --reload
+起動後、以下のようにリクエストを送ることでプロンプトを実行できます：
+
+
+curl -X POST http://localhost:8000/run/agent -H "Content-Type: application/json" -d '{"prompt": "〇〇して"}'
+レスポンス例
+
+
+{
+  "status": "ok",
+  "result": "実行結果のテキスト"
+}
 
 OpenManusを実行する一行コマンド：
 
 ```bash
 uvicorn main:app --reload
 ```
-
-その後、ターミナルからプロンプトを入力してください！
-
-MCP ツールバージョンを使用する場合は、以下を実行します：
-```bash
-python run_mcp.py
 ```
 
-開発中のマルチエージェントバージョンを試すには、以下を実行します：
-
-```bash
-python run_flow.py
-```
 
 ## 貢献方法
 

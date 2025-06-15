@@ -118,25 +118,35 @@ base_url = "https://api.openai.com/v1"
 api_key = "sk-..."  # Replace with your actual API key
 ```
 
-## Quick Start
 
-One line for run OpenManus:
+## 🧪 API Usage via FastAPI
+
+Starting from this version, you can also use OpenManus as a web API by launching it with [FastAPI](https://fastapi.tiangolo.com/).
+
+### ✅ Endpoints
+
+| Method | Endpoint       | Description                            |
+|--------|----------------|----------------------------------------|
+| POST   | `/run/agent`   | Run Manus agent with single prompt     |
+| POST   | `/run/flow`    | Run prompt with multi-agent Planning flow |
+
+### ▶️ How to Start FastAPI Server
 
 ```bash
 uvicorn main:app --reload
-```
+Once the server is running (default at http://localhost:8000), you can POST JSON payload like:
 
-Then input your idea via terminal!
+curl -X POST http://localhost:8000/run/agent \
+     -H "Content-Type: application/json" \
+     -d '{"prompt": "Write a Python function to reverse a string."}'
+📦 Response Example
 
-For MCP tool version, you can run:
-```bash
-python run_mcp.py
-```
+{
+  "status": "ok",
+  "result": "Here is the function: def reverse(s): return s[::-1]"
+}
+Make sure your config/config.toml is properly set with your OpenAI key before use.
 
-For unstable multi-agent version, you also can run:
-
-```bash
-python run_flow.py
 ```
 
 ## How to contribute
